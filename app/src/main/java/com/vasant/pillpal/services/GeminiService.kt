@@ -1,10 +1,10 @@
-package com.vasant.pillpal.services
+package com.PillPal.services
 
 import com.google.ai.client.generativeai.GenerativeModel
 import com.google.ai.client.generativeai.type.content
 import com.google.ai.client.generativeai.type.generationConfig
-import com.vasant.pillpal.BuildConfig
-import com.vasant.pillpal.repository.MedicineRepo
+import com.PillPal.BuildConfig
+import com.PillPal.repository.MedicineRepo
 import kotlinx.coroutines.flow.first
 import java.text.SimpleDateFormat
 import java.util.*
@@ -18,7 +18,7 @@ class GeminiService @Inject constructor(
     // The complex constructor you were trying to use is internal.
     private val generativeModel = GenerativeModel(
         // 1. Model name
-        modelName = "gemini-2.5-flash",
+        modelName = "gemini-1.5-flash",
 
         // 2. Your API Key from BuildConfig
         apiKey = BuildConfig.API_KEY,
