@@ -1,6 +1,6 @@
-package com.vasant.pillpal.repository
+package com.PillPal.repository
 
-import com.vasant.pillpal.data.db.Medicine
+import com.PillPal.data.db.Medicine
 import kotlinx.coroutines.flow.Flow
 
 interface MedicineRepo {
