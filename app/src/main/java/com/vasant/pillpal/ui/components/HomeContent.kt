@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.components
+package com.PillPal.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -28,15 +28,15 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import com.vasant.pillpal.R
-import com.vasant.pillpal.data.db.Medicine
-import com.vasant.pillpal.data.db.MedicineEvent
-import com.vasant.pillpal.ui.navigation.MainUiRoute
-import com.vasant.pillpal.ui.presentation.MedicineType
-import com.vasant.pillpal.ui.theme.SecondaryContainerColor
-import com.vasant.pillpal.ui.theme.jetbrainFamily
-import com.vasant.pillpal.ui.viewmodel.MedicineViewModel
-import com.vasant.pillpal.utils.getFormattedTime
+import com.PillPal.R
+import com.PillPal.data.db.Medicine
+import com.PillPal.data.db.MedicineEvent
+import com.PillPal.ui.navigation.MainUiRoute
+import com.PillPal.ui.presentation.MedicineType
+import com.PillPal.ui.theme.SecondaryContainerColor
+import com.PillPal.ui.theme.jetbrainFamily
+import com.PillPal.ui.viewmodel.MedicineViewModel
+import com.PillPal.utils.getFormattedTime
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -257,120 +257,99 @@ fun QuickStatsSection(medicines: List<Medicine>) {
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         // Completed Card
-        Card(
+        StatCard(
             modifier = Modifier.weight(1f),
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = Color(0xFFE8F5E9)
-            ),
-            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Icon(
-                    imageVector = Icons.Filled.CheckCircle,
-                    contentDescription = null,
-                    tint = Color(0xFF4CAF50),
-                    modifier = Modifier.size(28.dp)
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "$completedCount",
-                    fontFamily = jetbrainFamily,
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color(0xFF2E7D32)
-                )
-                Text(
-                    text = "Completed",
-                    fontFamily = jetbrainFamily,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = Color(0xFF4CAF50)
-                )
-            }
-        }
+            icon = Icons.Filled.CheckCircle,
+            value = "$completedCount",
+            label = "Completed",
+            color = Color(0xFF4CAF50),
+            backgroundColor = Color(0xFFE8F5E9)
+        )
 
         // Pending Card
-        Card(
+        StatCard(
             modifier = Modifier.weight(1f),
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = Color(0xFFFFF3E0)
-            ),
-            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.framemedicine),
-                    contentDescription = null,
-                    tint = Color(0xFFFF9800),
-                    modifier = Modifier.size(28.dp)
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "$pendingCount",
-                    fontFamily = jetbrainFamily,
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color(0xFFE65100)
-                )
-                Text(
-                    text = "Pending",
-                    fontFamily = jetbrainFamily,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = Color(0xFFFF9800)
-                )
-            }
-        }
+            painter = painterResource(R.drawable.framemedicine),
+            value = "$pendingCount",
+            label = "Pending",
+            color = Color(0xFFFF9800),
+            backgroundColor = Color(0xFFFFF3E0)
+        )
 
-        // Completion Rate Card
-        Card(
+        // Progress Card
+        StatCard(
             modifier = Modifier.weight(1f),
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = SecondaryContainerColor.copy(alpha = 0.1f)
-            ),
-            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+            painter = painterResource(R.drawable.medicine),
+            value = "$completionRate%",
+            label = "Progress",
+            color = SecondaryContainerColor,
+            backgroundColor = SecondaryContainerColor.copy(alpha = 0.1f)
+        )
+    }
+}
+
+@Composable
+fun StatCard(
+    modifier: Modifier = Modifier,
+    icon: androidx.compose.ui.graphics.vector.ImageVector? = null,
+    painter: androidx.compose.ui.graphics.painter.Painter? = null,
+    value: String,
+    label: String,
+    color: Color,
+    backgroundColor: Color
+) {
+    Card(
+        modifier = modifier.aspectRatio(0.85f),
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(containerColor = backgroundColor),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+            Surface(
+                shape = CircleShape,
+                color = color.copy(alpha = 0.15f),
+                modifier = Modifier.size(42.dp)
             ) {
-                Icon(
-                    painter = painterResource(R.drawable.framemedicine),
-                    contentDescription = null,
-                    tint = SecondaryContainerColor,
-                    modifier = Modifier.size(28.dp)
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "$completionRate%",
-                    fontFamily = jetbrainFamily,
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = SecondaryContainerColor
-                )
-                Text(
-                    text = "Progress",
-                    fontFamily = jetbrainFamily,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = SecondaryContainerColor.copy(alpha = 0.8f)
-                )
+                Box(contentAlignment = Alignment.Center) {
+                    if (icon != null) {
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = null,
+                            tint = color,
+                            modifier = Modifier.size(22.dp)
+                        )
+                    } else if (painter != null) {
+                        Icon(
+                            painter = painter,
+                            contentDescription = null,
+                            tint = color,
+                            modifier = Modifier.size(22.dp)
+                        )
+                    }
+                }
             }
+            Spacer(modifier = Modifier.height(12.dp))
+            Text(
+                text = value,
+                fontFamily = jetbrainFamily,
+                fontSize = 22.sp,
+                fontWeight = FontWeight.ExtraBold,
+                color = color.copy(alpha = 0.9f)
+            )
+            Text(
+                text = label,
+                fontFamily = jetbrainFamily,
+                fontSize = 11.sp,
+                fontWeight = FontWeight.Bold,
+                color = color.copy(alpha = 0.7f),
+                textAlign = TextAlign.Center
+            )
         }
     }
 }
