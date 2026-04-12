@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.screens
+package com.PillPal.ui.screens
 
 import android.app.AlertDialog
 import android.content.Intent
@@ -29,20 +29,22 @@ import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import com.vasant.pillpal.data.db.MedicineEvent
-import com.vasant.pillpal.ui.components.AddMedTop
-import com.vasant.pillpal.ui.presentation.MedicineState
-import com.vasant.pillpal.ui.presentation.MedicineType
-import com.vasant.pillpal.ui.theme.BackgroundColor
-import com.vasant.pillpal.ui.theme.SecondaryContainerColor
-import com.vasant.pillpal.ui.theme.jetbrainFamily
-import com.vasant.pillpal.ui.theme.pillColor
-import com.vasant.pillpal.ui.viewmodel.MedicineViewModel
-import com.vasant.pillpal.utils.ALARM_PERMISSION
-import com.vasant.pillpal.utils.NOTIFICATION_PERMISSION
-import com.vasant.pillpal.utils.getFormattedTime
-import com.vasant.pillpal.utils.getTimeInMillis
-import com.vasant.pillpal.utils.hasPermission
+import com.PillPal.data.db.MedicineEvent
+import androidx.compose.ui.res.painterResource
+import com.PillPal.R
+import com.PillPal.ui.components.AddMedTop
+import com.PillPal.ui.presentation.MedicineState
+import com.PillPal.ui.presentation.MedicineType
+import com.PillPal.ui.theme.BackgroundColor
+import com.PillPal.ui.theme.SecondaryContainerColor
+import com.PillPal.ui.theme.jetbrainFamily
+import com.PillPal.ui.theme.pillColor
+import com.PillPal.ui.viewmodel.MedicineViewModel
+import com.PillPal.utils.ALARM_PERMISSION
+import com.PillPal.utils.NOTIFICATION_PERMISSION
+import com.PillPal.utils.getFormattedTime
+import com.PillPal.utils.getTimeInMillis
+import com.PillPal.utils.hasPermission
 import kotlinx.coroutines.flow.MutableStateFlow
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -133,34 +135,34 @@ fun AddMedsScreen(
                 .fillMaxSize()
                 .verticalScroll(scrollState)
                 .background(BackgroundColor)
-                .padding(bottom = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            Spacer(modifier = Modifier.height(4.dp))
-
-            AddMedsScreenPill(
-                currentValue = medicineViewModel.state,
+            AddMedsInputSection(
                 title = "Medicine Name",
-                Event = medicineViewModel::onEvent,
+                value = medicineViewModel.state.collectAsStateWithLifecycle().value.medicineName,
+                onValueChange = { medicineViewModel.onEvent(MedicineEvent.MedicineNameChanged(it)) },
+                placeholder = "e.g. Paracetamol",
+                icon = R.drawable.framemedicine
             )
 
-            // Structured dosage input
             DosageInputRow(state = medicineViewModel.state, onEvent = medicineViewModel::onEvent)
 
-            // Medicine type selector (wrap chips)
             MedicineTypeSelector(currentState = medicineViewModel.state, onEvent = medicineViewModel::onEvent)
 
-            // Notes input (multiline)
-            AddMedsScreenPill(
+            AddMedsInputSection(
                 title = "Notes",
-                Event = medicineViewModel::onEvent,
-                currentValue = medicineViewModel.state,
+                value = medicineViewModel.state.collectAsStateWithLifecycle().value.note ?: "",
+                onValueChange = { medicineViewModel.onEvent(MedicineEvent.NoteChanged(it)) },
+                placeholder = "e.g. Take after food",
+                singleLine = false,
+                minLines = 3,
+                icon = R.drawable.guides
             )
-
 
             AddTimePill(medicineViewModel)
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(24.dp))
         }
     }
 }
@@ -175,60 +177,58 @@ fun MedicineTypeSelector(
     val selected = value.value.med_type ?: MedicineType.TABLET
 
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 13.dp),
-        colors = CardDefaults.cardColors(containerColor = pillColor)
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
-        Column(modifier = Modifier.padding(bottom = 10.dp)) {
+        Column(modifier = Modifier.padding(16.dp)) {
             Row(
-                modifier = Modifier
-                    .padding(start = 15.dp, end = 10.dp, top = 10.dp)
-                    .fillMaxWidth()
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(bottom = 12.dp)
             ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.medicine),
+                    contentDescription = null,
+                    tint = SecondaryContainerColor,
+                    modifier = Modifier.size(20.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = "Medicine Type",
                     fontFamily = jetbrainFamily,
-                    color = Color.Black.copy(alpha = 0.8f),
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 18.sp
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp
                 )
             }
-        }
-        Card(
-            modifier = Modifier
-                .padding(horizontal = 10.dp, vertical = 10.dp)
-                .align(Alignment.CenterHorizontally),
-            colors = CardDefaults.cardColors(containerColor = Color(0xFFF5F7F8))
-        ) {
+
             FlowRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
+                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 MedicineType.entries.forEach { type ->
                     val isSelected = type == selected
-                    val bg = if (isSelected) SecondaryContainerColor else Color.White
-                    val borderColor = if (isSelected) MaterialTheme.colorScheme.primary else Color(0xFFB0B0B0)
-                    Surface(
-                        shape = CircleShape,
-                        color = bg,
-                        tonalElevation = if (isSelected) 2.dp else 0.dp,
-                        modifier = Modifier
-                            .border(BorderStroke(2.dp, borderColor), shape = CircleShape)
-                            .clickable { onEvent(MedicineEvent.MedicineTypeChanged(type)) }
-                    ) {
-                        Text(
-                            text = type.name,
-                            fontFamily = jetbrainFamily,
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = if (isSelected) Color.White else Color.Black.copy(alpha = 0.8f),
-                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
-                        )
-                    }
+                    FilterChip(
+                        selected = isSelected,
+                        onClick = { onEvent(MedicineEvent.MedicineTypeChanged(type)) },
+                        label = {
+                            Text(
+                                text = type.displayName,
+                                fontFamily = jetbrainFamily,
+                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium
+                            )
+                        },
+                        colors = FilterChipDefaults.filterChipColors(
+                            selectedContainerColor = SecondaryContainerColor,
+                            selectedLabelColor = Color.White,
+                            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
+                            labelColor = MaterialTheme.colorScheme.onSurfaceVariant
+                        ),
+                        border = null,
+                        shape = RoundedCornerShape(12.dp)
+                    )
                 }
             }
         }
@@ -289,37 +289,34 @@ fun DosageInputRow(
     }
 
     Card(
-        Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 13.dp),
-        colors = CardDefaults.cardColors(containerColor = pillColor)
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
-        Column(modifier = Modifier.padding(bottom = 10.dp)) {
+        Column(modifier = Modifier.padding(16.dp)) {
             Row(
-                modifier = Modifier
-                    .padding(start = 15.dp, end = 10.dp, top = 10.dp)
-                    .fillMaxWidth()
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(bottom = 12.dp)
             ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.medicine),
+                    contentDescription = null,
+                    tint = SecondaryContainerColor,
+                    modifier = Modifier.size(20.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = "Dosage",
                     fontFamily = jetbrainFamily,
-                    color = Color.Black.copy(alpha = 0.8f),
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 18.sp
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp
                 )
             }
-        }
 
-        Card(
-            modifier = Modifier
-                .padding(start = 10.dp, end = 10.dp, bottom = 16.dp)
-                .fillMaxWidth(),
-            colors = CardDefaults.cardColors(containerColor = Color(0xFFF5F7F8))
-        ) {
             Row(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp, vertical = 12.dp)
-                    .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -331,26 +328,35 @@ fun DosageInputRow(
                         pushDosage()
                     },
                     modifier = Modifier.weight(1f),
-                    label = { Text("Amount") },
+                    placeholder = { Text("0") },
                     singleLine = true,
-                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
+                    shape = RoundedCornerShape(12.dp),
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = SecondaryContainerColor,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f)
+                    )
                 )
 
-                // Unit dropdown (only show if multiple options available)
+                // Unit dropdown
                 if (availableUnits.size > 1) {
                     ExposedDropdownMenuBox(expanded = expanded, onExpandedChange = { expanded = it }) {
                         OutlinedTextField(
                             value = unit,
                             onValueChange = {},
                             readOnly = true,
-                            label = { Text("Unit") },
                             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-                            modifier = Modifier.menuAnchor().width(IntrinsicSize.Min)
+                            modifier = Modifier.menuAnchor().width(120.dp),
+                            shape = RoundedCornerShape(12.dp),
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = SecondaryContainerColor,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f)
+                            )
                         )
                         ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
                             availableUnits.forEach { opt ->
                                 DropdownMenuItem(
-                                    text = { Text(opt) },
+                                    text = { Text(opt, fontFamily = jetbrainFamily) },
                                     onClick = {
                                         unit = opt
                                         expanded = false
@@ -361,14 +367,17 @@ fun DosageInputRow(
                         }
                     }
                 } else {
-                    // Single unit - just show as text
                     OutlinedTextField(
                         value = unit,
                         onValueChange = {},
                         readOnly = true,
-                        label = { Text("Unit") },
                         enabled = false,
-                        modifier = Modifier.width(100.dp)
+                        modifier = Modifier.width(100.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            disabledBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.1f),
+                            disabledTextColor = MaterialTheme.colorScheme.onSurface
+                        )
                     )
                 }
             }
@@ -380,50 +389,68 @@ fun DosageInputRow(
 fun AddTimePill(medicineViewModel: MedicineViewModel) {
     var showTimePicker by remember { mutableStateOf(false) }
     var time by remember { mutableStateOf("") }
-    Box(
-        modifier = Modifier
-            .padding(20.dp)
-            .clip(RoundedCornerShape(10.dp))
-            .fillMaxWidth()
-            .background(pillColor)
-            .clickable(
-                onClick = { showTimePicker = true })
-            .background(shape = RoundedCornerShape(13.dp), color = pillColor)
-    ) {
-        Column {
-            Text(
-                modifier = Modifier.padding(start = 20.dp, top = 10.dp, bottom = 10.dp),
-                text = "Add Time",
-                fontFamily = jetbrainFamily,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black.copy(alpha = 0.8f),
-                fontSize = 18.sp
-            )
-            Card(
-                modifier = Modifier
-                    .padding(start = 30.dp, end = 30.dp, bottom = 15.dp)
 
-                    .border(
-                        width = 1.dp, color = Color.Gray, shape = RoundedCornerShape(8.dp)
-                    )
-            ) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { showTimePicker = true },
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(20.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column {
                 Row(
-                    modifier = Modifier
-                        .background(Color.White)
-                        .padding(10.dp)
-                        .fillMaxWidth()
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.framemedicine),
+                        contentDescription = null,
+                        tint = SecondaryContainerColor,
+                        modifier = Modifier.size(20.dp)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "Time: $time",
+                        text = "Reminder Time",
                         fontFamily = jetbrainFamily,
-                        fontWeight = FontWeight.Medium,
-                        color = Color.Black.copy(alpha = 0.8f),
-                        fontSize = 16.sp,
-                        modifier = Modifier.padding(10.dp),
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp
+                    )
+                }
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = if (time.isEmpty()) "Not set" else time,
+                    fontFamily = jetbrainFamily,
+                    color = if (time.isEmpty()) MaterialTheme.colorScheme.onSurfaceVariant else SecondaryContainerColor,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 18.sp,
+                    modifier = Modifier.padding(start = 28.dp)
+                )
+            }
+
+            Surface(
+                shape = CircleShape,
+                color = SecondaryContainerColor.copy(alpha = 0.1f),
+                modifier = Modifier.size(48.dp)
+            ) {
+                Box(contentAlignment = Alignment.Center) {
+                    Icon(
+                        painter = painterResource(R.drawable.framemedicine),
+                        contentDescription = null,
+                        tint = SecondaryContainerColor,
+                        modifier = Modifier.size(24.dp)
                     )
                 }
             }
         }
+
         if (showTimePicker) {
             AddTimePickerDialog(onConfirm = { hour, minute ->
                 val mili = getTimeInMillis(hour, minute)
@@ -444,83 +471,66 @@ fun AddTimePill(medicineViewModel: MedicineViewModel) {
     }
 }
 
-
 @Composable
-
-fun AddMedsScreenPill(
+fun AddMedsInputSection(
     title: String,
-    Event: (MedicineEvent) -> Unit,
-    currentValue: MutableStateFlow<MedicineState>,
+    value: String,
+    onValueChange: (String) -> Unit,
+    placeholder: String,
+    singleLine: Boolean = true,
+    minLines: Int = 1,
+    icon: Int? = null
 ) {
-    val value = currentValue.collectAsStateWithLifecycle()
     Card(
-        Modifier
-            .fillMaxWidth()
-            .padding(13.dp), colors = CardDefaults.cardColors(
-            containerColor = pillColor
-        )
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
-        Column(modifier = Modifier.padding(bottom = 10.dp)) {
+        Column(modifier = Modifier.padding(16.dp)) {
             Row(
-                modifier = Modifier
-                    .padding(start = 15.dp, end = 10.dp, top = 10.dp)
-                    .fillMaxWidth()
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(bottom = 8.dp)
             ) {
+                if (icon != null) {
+                    Icon(
+                        painter = painterResource(id = icon),
+                        contentDescription = null,
+                        tint = SecondaryContainerColor,
+                        modifier = Modifier.size(20.dp)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                }
                 Text(
                     text = title,
                     fontFamily = jetbrainFamily,
-                    modifier = Modifier,
-                    color = Color.Black.copy(alpha = 0.8f),
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 18.sp
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp
                 )
             }
-        }
-        Card(
-            modifier = Modifier
-                .padding(bottom = 20.dp)
-                .border(
-                    width = 0.dp, color = Color(0xFFB0B0B0), shape = RoundedCornerShape(8.dp)
-                )
-                .align(Alignment.CenterHorizontally),
-            colors = CardDefaults.cardColors(containerColor = Color(0xFFF5F7F8))
-        ) {
-            val isNotes = title == "Notes"
-            TextField(
-                value = when (title) {
-                    "Medicine Name" -> value.value.medicineName
-                    "Dosage" -> value.value.dosage
-                    "Notes" -> value.value.note ?: ""
-                    else -> ""
-                },
-                onValueChange = {
-                    when (title) {
-                        "Medicine Name" -> Event(MedicineEvent.MedicineNameChanged(medicineName = it))
-                        "Dosage" -> Event(MedicineEvent.AddDosageChange(dosage = it))
-                        "Notes" -> Event(MedicineEvent.NoteChanged(note = it))
-                    }
-                },
-                singleLine = !isNotes,
-                minLines = if (isNotes) 3 else 1,
-                textStyle = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.background(Color.White),
-                colors = TextFieldDefaults.colors(
-                    focusedTextColor = Color.Black,
-                    unfocusedTextColor = Color.Black,
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    focusedContainerColor = Color.Transparent,
-                    unfocusedContainerColor = Color.Transparent,
-                    cursorColor = Color(0xFF000000),
-                    disabledIndicatorColor = Color.Transparent
-                ),
+
+            OutlinedTextField(
+                value = value,
+                onValueChange = onValueChange,
+                modifier = Modifier.fillMaxWidth(),
                 placeholder = {
                     Text(
-                        text = "Enter $title",
+                        text = placeholder,
                         fontFamily = jetbrainFamily,
-                        color = Color(0xFFB0B0B0)
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
                     )
-                }
+                },
+                singleLine = singleLine,
+                minLines = minLines,
+                shape = RoundedCornerShape(12.dp),
+                textStyle = MaterialTheme.typography.bodyLarge.copy(fontFamily = jetbrainFamily),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = SecondaryContainerColor,
+                    unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
+                    focusedContainerColor = Color.Transparent,
+                    unfocusedContainerColor = Color.Transparent
+                )
             )
         }
     }
