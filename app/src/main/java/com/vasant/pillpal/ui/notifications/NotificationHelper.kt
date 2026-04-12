@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.notifications
+package com.PillPal.ui.notifications
 
 import android.Manifest
 import android.app.PendingIntent
@@ -11,11 +11,11 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import com.google.gson.Gson
-import com.vasant.pillpal.MEDICINE_CHANNEL_ID
-import com.vasant.pillpal.R
-import com.vasant.pillpal.data.db.Medicine
-import com.vasant.pillpal.ui.ReminderReceiver
-import com.vasant.pillpal.ui.components.REMINDER
+import com.PillPal.MEDICINE_CHANNEL_ID
+import com.PillPal.R
+import com.PillPal.data.db.Medicine
+import com.PillPal.ui.ReminderReceiver
+import com.PillPal.ui.components.REMINDER
 
 object NotificationIds {
     fun forReminder(reminder: Medicine): Int =
@@ -67,7 +67,7 @@ fun buildReminderNotification(
         PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
     )
 
-    val contentIntent = Intent(context, com.vasant.pillpal.MainActivity::class.java)
+    val contentIntent = Intent(context, com.PillPal.MainActivity::class.java)
     val contentPending = PendingIntent.getActivity(
         context,
         NotificationIds.forReminder(reminder),
