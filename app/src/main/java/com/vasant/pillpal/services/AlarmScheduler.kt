@@ -1,11 +1,11 @@
-package com.vasant.pillpal.services
+package com.PillPal.services
 
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import com.vasant.pillpal.ui.ReminderReceiver
+import com.PillPal.ui.ReminderReceiver
 
 class AlarmScheduler(private val context: Context) {
 
