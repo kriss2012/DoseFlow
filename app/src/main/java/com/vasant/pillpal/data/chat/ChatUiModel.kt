@@ -1,4 +1,4 @@
-package com.vasant.pillpal.data.chat
+package com.PillPal.data.chat
 
 data class ChatUiModel(
     val messages: List<Message>,
