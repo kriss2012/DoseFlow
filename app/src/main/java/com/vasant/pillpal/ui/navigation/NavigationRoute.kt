@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.navigation
+package com.PillPal.ui.navigation
 
 import kotlinx.serialization.Serializable
 
