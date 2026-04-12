@@ -1,8 +1,8 @@
-package com.vasant.pillpal.repository
+package com.PillPal.repository
 
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
-import com.vasant.pillpal.utils.AuthState
+import com.PillPal.utils.AuthState
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
