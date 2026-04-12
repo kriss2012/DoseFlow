@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.screens.AuthScreens
+package com.PillPal.ui.screens.AuthScreens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,11 +27,11 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.navigation.NavController
 import androidx.compose.ui.platform.LocalContext
 import android.content.Context
-import com.vasant.pillpal.ui.navigation.AuthenticationRoute
-import com.vasant.pillpal.ui.theme.BackgroundColor
-import com.vasant.pillpal.ui.theme.SecondaryContainerColor
-import com.vasant.pillpal.ui.theme.fontColor
-import com.vasant.pillpal.ui.theme.rubikFamily
+import com.PillPal.ui.navigation.AuthenticationRoute
+import com.PillPal.ui.theme.BackgroundColor
+import com.PillPal.ui.theme.SecondaryContainerColor
+import com.PillPal.ui.theme.fontColor
+import com.PillPal.ui.theme.rubikFamily
 
 @Composable
 fun WelcomeScreen(
