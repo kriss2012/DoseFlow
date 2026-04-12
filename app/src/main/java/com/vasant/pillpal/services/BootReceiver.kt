@@ -1,4 +1,4 @@
-package com.vasant.pillpal.services
+package com.PillPal.services
 
 import android.content.BroadcastReceiver
 import android.content.Context
