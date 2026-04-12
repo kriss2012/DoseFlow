@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.screens
+package com.PillPal.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -22,9 +22,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.vasant.pillpal.R
-import com.vasant.pillpal.ui.theme.SecondaryContainerColor
-import com.vasant.pillpal.ui.theme.jetbrainFamily
+import com.PillPal.R
+import com.PillPal.ui.theme.SecondaryContainerColor
+import com.PillPal.ui.theme.jetbrainFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -188,21 +188,22 @@ fun ProfileHeaderSection() {
                 // Quick Stats Row
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     QuickStatItem("12", "Medications")
-                    HorizontalDivider(
+                    Box(
                         modifier = Modifier
                             .width(1.dp)
-                            .height(40.dp),
-                        color = Color.White.copy(alpha = 0.3f)
+                            .height(30.dp)
+                            .background(Color.White.copy(alpha = 0.3f))
                     )
                     QuickStatItem("85%", "Adherence")
-                    HorizontalDivider(
+                    Box(
                         modifier = Modifier
                             .width(1.dp)
-                            .height(40.dp),
-                        color = Color.White.copy(alpha = 0.3f)
+                            .height(30.dp)
+                            .background(Color.White.copy(alpha = 0.3f))
                     )
                     QuickStatItem("45", "Days Active")
                 }
