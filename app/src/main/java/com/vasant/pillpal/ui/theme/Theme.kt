@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.theme
+package com.PillPal.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
