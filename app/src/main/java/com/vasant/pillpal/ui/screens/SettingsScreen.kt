@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.screens
+package com.PillPal.ui.screens
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -27,12 +27,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.vasant.pillpal.ui.theme.SecondaryContainerColor
-import com.vasant.pillpal.ui.theme.jetbrainFamily
+import com.PillPal.ui.theme.SecondaryContainerColor
+import com.PillPal.ui.theme.jetbrainFamily
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.vasant.pillpal.ui.viewmodel.SettingsViewModel
-import com.vasant.pillpal.ui.navigation.AuthenticationRoute
-import com.vasant.pillpal.ui.navigation.MainUiRoute
+import com.PillPal.ui.viewmodel.SettingsViewModel
+import com.PillPal.ui.navigation.AuthenticationRoute
+import com.PillPal.ui.navigation.MainUiRoute
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
