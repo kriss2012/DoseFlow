@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.components
+package com.PillPal.ui.components
 
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -13,9 +13,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.vasant.pillpal.R
-import com.vasant.pillpal.ui.navigation.MainUiRoute
-import com.vasant.pillpal.ui.theme.jetbrainFamily
+import com.PillPal.R
+import com.PillPal.ui.navigation.MainUiRoute
+import com.PillPal.ui.theme.jetbrainFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
