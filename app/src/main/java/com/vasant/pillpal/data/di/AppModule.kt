@@ -1,16 +1,16 @@
-package com.vasant.pillpal.data.di
+package com.PillPal.data.di
 
 import android.content.Context
 import androidx.room.Room
 import com.google.firebase.auth.FirebaseAuth
-import com.vasant.pillpal.data.chat.GenerationParameters
-import com.vasant.pillpal.data.db.MedicineDatabase
-import com.vasant.pillpal.data.db.dao.MedicineDao
-import com.vasant.pillpal.repository.Auth
-import com.vasant.pillpal.repository.AuthImplementation
-import com.vasant.pillpal.repository.MedicineRepo
-import com.vasant.pillpal.repository.MedicineRepoImplementation
-import com.vasant.pillpal.services.GeminiService
+import com.PillPal.data.chat.GenerationParameters
+import com.PillPal.data.db.MedicineDatabase
+import com.PillPal.data.db.dao.MedicineDao
+import com.PillPal.repository.Auth
+import com.PillPal.repository.AuthImplementation
+import com.PillPal.repository.MedicineRepo
+import com.PillPal.repository.MedicineRepoImplementation
+import com.PillPal.services.GeminiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,7 +28,7 @@ object AppModule {
         return Room.databaseBuilder(
             context = context, MedicineDatabase::class.java,
             name = "medicine_db"
-        ).fallbackToDestructiveMigration(true).build();
+        ).fallbackToDestructiveMigration().build();
     }
 
 
