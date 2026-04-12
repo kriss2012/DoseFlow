@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.components
+package com.PillPal.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -18,12 +18,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.vasant.pillpal.R
-import com.vasant.pillpal.ui.navigation.MainUiRoute
-import com.vasant.pillpal.ui.navigation.NavigationRoute
-import com.vasant.pillpal.ui.screens.HomeScreen
-import com.vasant.pillpal.ui.theme.SecondaryContainerColor
-import com.vasant.pillpal.ui.theme.jetbrainFamily
+import com.PillPal.R
+import com.PillPal.ui.navigation.MainUiRoute
+import com.PillPal.ui.navigation.NavigationRoute
+import com.PillPal.ui.screens.HomeScreen
+import com.PillPal.ui.theme.SecondaryContainerColor
+import com.PillPal.ui.theme.jetbrainFamily
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 
