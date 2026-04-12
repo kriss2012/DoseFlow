@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.screens
+package com.PillPal.ui.screens
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -28,23 +28,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.vasant.pillpal.R
-import com.vasant.pillpal.data.chat.ChatUiModel
-import com.vasant.pillpal.ui.theme.BackgroundColor
-import com.vasant.pillpal.ui.theme.SecondaryContainerColor
-import com.vasant.pillpal.ui.theme.fontColor
-import com.vasant.pillpal.ui.theme.jetbrainFamily
-import com.vasant.pillpal.ui.viewmodel.ChatViewModel
+import com.PillPal.R
+import com.PillPal.data.chat.ChatUiModel
+import com.PillPal.ui.theme.BackgroundColor
+import com.PillPal.ui.theme.SecondaryContainerColor
+import com.PillPal.ui.theme.fontColor
+import com.PillPal.ui.theme.jetbrainFamily
+import com.PillPal.ui.viewmodel.ChatViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChatScreen(navHost: NavHostController) {
     val viewModel: ChatViewModel = hiltViewModel()
     val conversation by viewModel.conversation.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsState()
     val listState = rememberLazyListState()
-    var isLoading by remember { mutableStateOf(false) }
 
-    LaunchedEffect(conversation.size) {
+    LaunchedEffect(conversation.size, isLoading) {
         if (conversation.isNotEmpty()) {
             listState.animateScrollToItem(conversation.size - 1)
         }
@@ -52,9 +52,23 @@ fun ChatScreen(navHost: NavHostController) {
 
     Scaffold(
         topBar = {
-            ChatTopBar(onBackClick = { navHost.popBackStack() })
+            Column {
+                Spacer(modifier = Modifier.windowInsetsTopHeight(WindowInsets.statusBars))
+                ChatTopBar(onBackClick = { navHost.popBackStack() })
+            }
         },
-        containerColor = BackgroundColor
+        containerColor = BackgroundColor,
+        bottomBar = {
+            ChatInputBox(
+                onSendMessage = { message ->
+                    viewModel.sendMessage(message)
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .navigationBarsPadding()
+                    .imePadding()
+            )
+        }
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -67,7 +81,7 @@ fun ChatScreen(navHost: NavHostController) {
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxWidth(),
-                contentPadding = PaddingValues(vertical = 16.dp),
+                contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(
@@ -85,44 +99,39 @@ fun ChatScreen(navHost: NavHostController) {
 
                 if (isLoading) {
                     item {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp),
-                            horizontalArrangement = Arrangement.Start
-                        ) {
-                            Surface(
-                                shape = RoundedCornerShape(12.dp),
-                                color = SecondaryContainerColor.copy(alpha = 0.15f),
-                                modifier = Modifier
-                                    .size(32.dp)
-                                    .align(Alignment.Bottom)
-                            ) {
-                                Box(contentAlignment = Alignment.Center) {
-                                    Icon(
-                                        imageVector = Icons.Default.SmartToy,
-                                        contentDescription = null,
-                                        tint = SecondaryContainerColor,
-                                        modifier = Modifier.padding(6.dp)
-                                    )
-                                }
-                            }
-                            Spacer(modifier = Modifier.width(8.dp))
-                            TypingIndicator()
-                        }
+                        BotTypingIndicator()
                     }
                 }
             }
-
-            ChatInputBox(
-                onSendMessage = { message ->
-                    isLoading = true
-                    viewModel.sendMessage(message)
-                    isLoading = false
-                },
-                modifier = Modifier.fillMaxWidth()
-            )
         }
+    }
+}
+
+@Composable
+fun BotTypingIndicator() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.Start,
+        verticalAlignment = Alignment.Bottom
+    ) {
+        Surface(
+            shape = RoundedCornerShape(12.dp),
+            color = SecondaryContainerColor.copy(alpha = 0.15f),
+            modifier = Modifier.size(32.dp)
+        ) {
+            Box(contentAlignment = Alignment.Center) {
+                Icon(
+                    imageVector = Icons.Default.SmartToy,
+                    contentDescription = null,
+                    tint = SecondaryContainerColor,
+                    modifier = Modifier.size(18.dp)
+                )
+            }
+        }
+        Spacer(modifier = Modifier.width(8.dp))
+        TypingIndicator()
     }
 }
 
@@ -131,14 +140,15 @@ fun ChatScreen(navHost: NavHostController) {
 fun ChatTopBar(onBackClick: () -> Unit) {
     Surface(
         modifier = Modifier
-            .fillMaxWidth()
-            .shadow(4.dp),
-        color = MaterialTheme.colorScheme.background
+            .fillMaxWidth(),
+        color = MaterialTheme.colorScheme.surface,
+        tonalElevation = 4.dp,
+        shadowElevation = 8.dp
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 8.dp, vertical = 12.dp),
+                .padding(horizontal = 8.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = onBackClick) {
@@ -273,19 +283,20 @@ fun ChatInputBox(
     modifier: Modifier = Modifier
 ) {
     var input by remember { mutableStateOf("") }
-    val focusManager = LocalFocusManager.current
     val isInputEmpty = input.isBlank()
 
     Surface(
         modifier = modifier,
-        color = MaterialTheme.colorScheme.background,
-        shadowElevation = 8.dp
+        color = MaterialTheme.colorScheme.surface,
+        tonalElevation = 8.dp,
+        shadowElevation = 16.dp,
+        shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.Bottom
+                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             OutlinedTextField(
                 value = input,
@@ -293,18 +304,18 @@ fun ChatInputBox(
                 modifier = Modifier.weight(1f),
                 placeholder = {
                     Text(
-                        "Ask me anything about medications...",
+                        "Ask about medications...",
                         fontFamily = jetbrainFamily,
                         fontSize = 14.sp,
-                        color = fontColor.copy(alpha = 0.4f)
+                        color = fontColor.copy(alpha = 0.5f)
                     )
                 },
-                shape = RoundedCornerShape(24.dp),
+                shape = RoundedCornerShape(28.dp),
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = SecondaryContainerColor.copy(alpha = 0.5f),
-                    unfocusedBorderColor = Color.Transparent,
-                    focusedContainerColor = MaterialTheme.colorScheme.surface,
-                    unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                    focusedBorderColor = SecondaryContainerColor,
+                    unfocusedBorderColor = fontColor.copy(alpha = 0.1f),
+                    focusedContainerColor = BackgroundColor,
+                    unfocusedContainerColor = BackgroundColor,
                     cursorColor = SecondaryContainerColor,
                     focusedTextColor = fontColor,
                     unfocusedTextColor = fontColor
@@ -316,19 +327,19 @@ fun ChatInputBox(
                 )
             )
 
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(12.dp))
 
             FilledIconButton(
                 onClick = {
                     if (input.isNotBlank()) {
-                        onSendMessage(input)
+                        val message = input
                         input = ""
-                        focusManager.clearFocus()
+                        onSendMessage(message)
                     }
                 },
                 enabled = !isInputEmpty,
-                modifier = Modifier.size(52.dp),
-                shape = RoundedCornerShape(16.dp),
+                modifier = Modifier.size(48.dp),
+                shape = CircleShape,
                 colors = IconButtonDefaults.filledIconButtonColors(
                     containerColor = SecondaryContainerColor,
                     contentColor = Color.White,
@@ -338,8 +349,8 @@ fun ChatInputBox(
             ) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.Send,
-                    contentDescription = "Send message",
-                    modifier = Modifier.size(22.dp)
+                    contentDescription = "Send",
+                    modifier = Modifier.size(20.dp)
                 )
             }
         }
