@@ -1,22 +1,22 @@
-package com.vasant.pillpal.ui
+package com.PillPal.ui
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.google.gson.Gson
-import com.vasant.pillpal.data.db.Medicine
-import com.vasant.pillpal.data.sharedPref.NotificationPrefs
-import com.vasant.pillpal.repository.MedicineRepo
-import com.vasant.pillpal.ui.components.REMINDER
-import com.vasant.pillpal.ui.components.cancelAlarm
-import com.vasant.pillpal.ui.components.snoozeAlarm
-import com.vasant.pillpal.ui.notifications.NotificationActions
-import com.vasant.pillpal.ui.notifications.cancelReminderNotification
-import com.vasant.pillpal.ui.notifications.showReminderNotification
+import com.PillPal.data.db.Medicine
+import com.PillPal.data.sharedPref.NotificationPrefs
+import com.PillPal.repository.MedicineRepo
+import com.PillPal.ui.components.REMINDER
+import com.PillPal.ui.components.cancelAlarm
+import com.PillPal.ui.components.snoozeAlarm
+import com.PillPal.ui.notifications.NotificationActions
+import com.PillPal.ui.notifications.cancelReminderNotification
+import com.PillPal.ui.notifications.showReminderNotification
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
-import com.vasant.pillpal.services.ensureChannelForSettings
+import com.PillPal.services.ensureChannelForSettings
 
 @AndroidEntryPoint
 class ReminderReceiver : BroadcastReceiver() {
