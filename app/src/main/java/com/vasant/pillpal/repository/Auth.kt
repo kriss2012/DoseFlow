@@ -1,6 +1,6 @@
-package com.vasant.pillpal.repository
+package com.PillPal.repository
 
-import com.vasant.pillpal.utils.AuthState
+import com.PillPal.utils.AuthState
 
 interface Auth {
     suspend fun SingIn(email: String, password: String): AuthState
