@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.screens
+package com.PillPal.ui.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.WindowInsets
@@ -18,9 +18,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.vasant.pillpal.ui.components.BottomNavigationBar
-import com.vasant.pillpal.ui.components.HomeContent
-import com.vasant.pillpal.ui.components.TopBarHomeScreen
+import com.PillPal.ui.components.BottomNavigationBar
+import com.PillPal.ui.components.HomeContent
+import com.PillPal.ui.components.TopBarHomeScreen
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
