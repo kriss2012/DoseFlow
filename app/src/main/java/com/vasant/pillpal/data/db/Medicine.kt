@@ -1,8 +1,8 @@
-package com.vasant.pillpal.data.db
+package com.PillPal.data.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.vasant.pillpal.ui.presentation.MedicineType
+import com.PillPal.ui.presentation.MedicineType
 
 @Entity
 data class Medicine(
