@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.components
+package com.PillPal.ui.components
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
@@ -35,10 +35,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.vasant.pillpal.R
-import com.vasant.pillpal.ui.navigation.MainUiRoute
-import com.vasant.pillpal.ui.theme.SecondaryContainerColor
-import com.vasant.pillpal.ui.theme.fontColor
+import com.PillPal.R
+import com.PillPal.ui.navigation.MainUiRoute
+import com.PillPal.ui.theme.SecondaryContainerColor
+import com.PillPal.ui.theme.fontColor
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
