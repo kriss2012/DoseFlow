@@ -1,12 +1,12 @@
-package com.vasant.pillpal.data.db
+package com.PillPal.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.vasant.pillpal.data.db.dao.MedicineDao
+import com.PillPal.data.db.dao.MedicineDao
 
 @Database(
-    entities = [Medicine::class], version = 3, exportSchema = true
+    entities = [Medicine::class], version = 3, exportSchema = false
 )
 @TypeConverters(MedicineTypeConverter::class)
 abstract class MedicineDatabase : RoomDatabase() {
