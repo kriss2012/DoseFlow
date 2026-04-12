@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.screens
+package com.PillPal.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,12 +24,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.vasant.pillpal.R
-import com.vasant.pillpal.ui.notifications.NotificationItem
-import com.vasant.pillpal.ui.notifications.NotificationType
-import com.vasant.pillpal.ui.theme.SecondaryContainerColor
-import com.vasant.pillpal.ui.theme.jetbrainFamily
-import com.vasant.pillpal.ui.viewmodel.NotificationsViewModel
+import com.PillPal.R
+import com.PillPal.ui.notifications.NotificationItem
+import com.PillPal.ui.notifications.NotificationType
+import com.PillPal.ui.theme.SecondaryContainerColor
+import com.PillPal.ui.theme.jetbrainFamily
+import com.PillPal.ui.viewmodel.NotificationsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
