@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.components
+package com.PillPal.ui.components
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -6,8 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.google.gson.Gson
-import com.vasant.pillpal.data.db.Medicine
-import com.vasant.pillpal.ui.ReminderReceiver
+import com.PillPal.data.db.Medicine
+import com.PillPal.ui.ReminderReceiver
 
 private fun requestCodeFor(medicine: Medicine): Int = (medicine.medName + "_" + medicine.time).hashCode()
 
