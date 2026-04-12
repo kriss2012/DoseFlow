@@ -1,4 +1,4 @@
-package com.vasant.pillpal.utils
+package com.PillPal.utils
 
 import com.google.firebase.auth.FirebaseUser
 
