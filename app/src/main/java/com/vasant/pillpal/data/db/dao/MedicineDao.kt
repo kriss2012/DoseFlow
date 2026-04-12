@@ -1,10 +1,10 @@
-package com.vasant.pillpal.data.db.dao
+package com.PillPal.data.db.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
-import com.vasant.pillpal.data.db.Medicine
+import com.PillPal.data.db.Medicine
 import kotlinx.coroutines.flow.Flow
 
 @Dao
