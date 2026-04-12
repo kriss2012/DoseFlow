@@ -1,6 +1,6 @@
-package com.vasant.pillpal.data.api.body
+package com.PillPal.data.api.body
 
-import com.vasant.pillpal.data.chat.GenerationParameters
+import com.PillPal.data.chat.GenerationParameters
 
 data class ChatRequest(
     val inputs: String,
