@@ -1,7 +1,7 @@
-package com.vasant.pillpal.data.chat
+package com.PillPal.data.chat
 
-import com.vasant.pillpal.APPCONSTANTS.BOT
-import com.vasant.pillpal.APPCONSTANTS.MY_ID
+import com.PillPal.APPCONSTANTS.BOT
+import com.PillPal.APPCONSTANTS.MY_ID
 
 data class Message(
     val text: String,
