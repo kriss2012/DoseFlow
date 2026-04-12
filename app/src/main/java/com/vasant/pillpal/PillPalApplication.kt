@@ -1,4 +1,4 @@
-package com.vasant.pillpal
+package com.PillPal
 
 // NOTE: This file previously defined a second Application class annotated with @HiltAndroidApp
 // (PillPalApplication). That caused the error: "Cannot process multiple app roots" because
