@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.screens.AuthScreens
+package com.PillPal.ui.screens.AuthScreens
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.EaseInOutCubic
@@ -39,13 +39,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.vasant.pillpal.ui.navigation.AuthenticationRoute
-import com.vasant.pillpal.ui.navigation.MainUiRoute
-import com.vasant.pillpal.ui.navigation.NavigationRoute
-import com.vasant.pillpal.ui.theme.BackgroundColor
-import com.vasant.pillpal.ui.theme.SecondaryContainerColor
-import com.vasant.pillpal.ui.theme.fontColor
-import com.vasant.pillpal.ui.theme.rubikFamily
+import com.PillPal.ui.navigation.AuthenticationRoute
+import com.PillPal.ui.navigation.MainUiRoute
+import com.PillPal.ui.navigation.NavigationRoute
+import com.PillPal.ui.theme.BackgroundColor
+import com.PillPal.ui.theme.SecondaryContainerColor
+import com.PillPal.ui.theme.fontColor
+import com.PillPal.ui.theme.rubikFamily
 import kotlinx.coroutines.delay
 import kotlin.math.cos
 import kotlin.math.sin
