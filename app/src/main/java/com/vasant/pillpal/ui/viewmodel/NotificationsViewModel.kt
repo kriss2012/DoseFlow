@@ -1,12 +1,12 @@
-package com.vasant.pillpal.ui.viewmodel
+package com.PillPal.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vasant.pillpal.data.db.Medicine
-import com.vasant.pillpal.data.sharedPref.NotificationReadStore
-import com.vasant.pillpal.repository.MedicineRepo
-import com.vasant.pillpal.ui.notifications.NotificationItem
-import com.vasant.pillpal.ui.notifications.NotificationType
+import com.PillPal.data.db.Medicine
+import com.PillPal.data.sharedPref.NotificationReadStore
+import com.PillPal.repository.MedicineRepo
+import com.PillPal.ui.notifications.NotificationItem
+import com.PillPal.ui.notifications.NotificationType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
