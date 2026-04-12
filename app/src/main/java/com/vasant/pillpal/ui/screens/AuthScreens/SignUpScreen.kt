@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.screens.AuthScreens
+package com.PillPal.ui.screens.AuthScreens
 
 import android.widget.Toast
 import android.util.Patterns
@@ -46,13 +46,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.vasant.pillpal.R
-import com.vasant.pillpal.ui.navigation.AuthenticationRoute
-import com.vasant.pillpal.ui.theme.BackgroundColor
-import com.vasant.pillpal.ui.theme.SecondaryContainerColor
-import com.vasant.pillpal.ui.theme.rubikFamily
-import com.vasant.pillpal.ui.viewmodel.FirebaseViewModel
-import com.vasant.pillpal.utils.FirebaseState
+import com.PillPal.R
+import com.PillPal.ui.navigation.AuthenticationRoute
+import com.PillPal.ui.theme.BackgroundColor
+import com.PillPal.ui.theme.SecondaryContainerColor
+import com.PillPal.ui.theme.rubikFamily
+import com.PillPal.ui.viewmodel.FirebaseViewModel
+import com.PillPal.utils.FirebaseState
 
 @Composable
 fun SignUpScreen(
