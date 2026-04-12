@@ -1,4 +1,4 @@
-package com.vasant.pillpal
+package com.PillPal
 
 object APPCONSTANTS {
     const val DATABASE_NAME = "pillpal_database"
