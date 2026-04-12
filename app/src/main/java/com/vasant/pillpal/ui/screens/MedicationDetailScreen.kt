@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.screens
+package com.PillPal.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -23,9 +23,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.vasant.pillpal.R
-import com.vasant.pillpal.ui.theme.SecondaryContainerColor
-import com.vasant.pillpal.ui.theme.jetbrainFamily
+import com.PillPal.R
+import com.PillPal.ui.theme.SecondaryContainerColor
+import com.PillPal.ui.theme.jetbrainFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
