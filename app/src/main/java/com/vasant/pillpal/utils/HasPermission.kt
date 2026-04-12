@@ -1,4 +1,4 @@
-package com.vasant.pillpal.utils
+package com.PillPal.utils
 
 import android.Manifest
 import android.app.AlarmManager
