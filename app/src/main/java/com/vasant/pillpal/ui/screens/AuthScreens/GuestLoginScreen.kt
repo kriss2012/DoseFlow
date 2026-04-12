@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.screens.AuthScreens
+package com.PillPal.ui.screens.AuthScreens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -32,11 +32,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.vasant.pillpal.ui.navigation.NavigationRoute
-import com.vasant.pillpal.ui.theme.BackgroundColor
-import com.vasant.pillpal.ui.theme.SecondaryContainerColor
-import com.vasant.pillpal.ui.theme.fontColor
-import com.vasant.pillpal.ui.theme.rubikFamily
+import com.PillPal.ui.navigation.NavigationRoute
+import com.PillPal.ui.theme.BackgroundColor
+import com.PillPal.ui.theme.SecondaryContainerColor
+import com.PillPal.ui.theme.fontColor
+import com.PillPal.ui.theme.rubikFamily
 
 @Composable
 fun GuestLoginScreen(navController: NavController) {
