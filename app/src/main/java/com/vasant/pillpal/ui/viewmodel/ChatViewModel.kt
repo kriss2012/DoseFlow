@@ -1,10 +1,10 @@
-package com.vasant.pillpal.ui.viewmodel
+package com.PillPal.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vasant.pillpal.data.chat.Author
-import com.vasant.pillpal.data.chat.ChatUiModel
-import com.vasant.pillpal.services.GeminiService
+import com.PillPal.data.chat.Author
+import com.PillPal.data.chat.ChatUiModel
+import com.PillPal.services.GeminiService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,6 +19,9 @@ class ChatViewModel @Inject constructor(
     val conversation: StateFlow<List<ChatUiModel.Message>>
         get() = _conversation
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
+
     private val _conversation = MutableStateFlow(
         listOf(ChatUiModel.Message.initConv)
     )
@@ -31,13 +34,18 @@ class ChatViewModel @Inject constructor(
             )
             _conversation.emit(_conversation.value + myChat)
 
-            val botResponse = geminiService.generateMedicalResponse(message)
-            _conversation.emit(
-                _conversation.value + ChatUiModel.Message(
-                    text = botResponse,
-                    author = Author.BOT
+            _isLoading.value = true
+            try {
+                val botResponse = geminiService.generateMedicalResponse(message)
+                _conversation.emit(
+                    _conversation.value + ChatUiModel.Message(
+                        text = botResponse,
+                        author = Author.BOT
+                    )
                 )
-            )
+            } finally {
+                _isLoading.value = false
+            }
         }
     }
 }
