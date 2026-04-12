@@ -12,24 +12,42 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("com.google.devtools.ksp")
-    kotlin("plugin.serialization") version "2.1.21"
-    id("com.google.dagger.hilt.android")
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.hilt)
     alias(libs.plugins.google.gms.google.services)
 }
 
 android {
-    namespace = "com.vasant.pillpal"
+    namespace = "com.PillPal"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.vasant.pillpal"
+        applicationId = "com.PillPal"
         minSdk = 24
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 10
+        versionName = "1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        create("release") {
+            val storeFilePath = localProperties.getProperty("RELEASE_STORE_FILE")
+            if (storeFilePath != null && file(storeFilePath).exists()) {
+                storeFile = file(storeFilePath)
+                storePassword = localProperties.getProperty("RELEASE_STORE_PASSWORD")
+                keyAlias = localProperties.getProperty("RELEASE_KEY_ALIAS")
+                keyPassword = localProperties.getProperty("RELEASE_KEY_PASSWORD")
+            } else {
+                // Fallback to debug for local testing if release key is missing
+                storeFile = file(System.getProperty("user.home") + "/.android/debug.keystore")
+                storePassword = "android"
+                keyAlias = "androiddebugkey"
+                keyPassword = "android"
+            }
+        }
     }
 
     buildTypes {
@@ -41,16 +59,19 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
             buildConfigField("String", "API_KEY", "\"$apiKey\"")
-<<<<<<< HEAD
-=======
-            signingConfig = signingConfigs.getByName("debug")
->>>>>>> f8ee5df (docs: refresh README and add screenshot previews)
+            signingConfig = signingConfigs.getByName("release")
+            ndk {
+                debugSymbolLevel = "FULL"
+            }
         }
         debug {
-            buildConfigField("String", "API_KEY", localProperties.getProperty("API_KEY"))
-            isMinifyEnabled=true
-            isShrinkResources=true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),"proguard-rules.pro")
+            buildConfigField("String", "API_KEY", "\"$apiKey\"")
+            isMinifyEnabled = false // Usually false for faster debug builds
+            isShrinkResources = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -98,8 +119,8 @@ dependencies {
     implementation(libs.hilt.android)
 
     // KSP for Hilt's annotation processing
-    ksp("com.google.dagger:hilt-android-compiler:2.56.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
+    ksp(libs.hilt.android.compiler)
+    implementation(libs.kotlinx.serialization.json)
 
     //Gson
     implementation(libs.gson)
