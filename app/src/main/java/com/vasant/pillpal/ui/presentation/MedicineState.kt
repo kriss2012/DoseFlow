@@ -1,6 +1,6 @@
-package com.vasant.pillpal.ui.presentation
+package com.PillPal.ui.presentation
 
-import com.vasant.pillpal.data.db.Medicine
+import com.PillPal.data.db.Medicine
 data class MedicineState(
     val medicines: List<Medicine> = emptyList(),
     val med_type: MedicineType? =MedicineType.TABLET,
