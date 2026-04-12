@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.notifications
+package com.PillPal.ui.notifications
 
 import androidx.compose.ui.graphics.Color
 
