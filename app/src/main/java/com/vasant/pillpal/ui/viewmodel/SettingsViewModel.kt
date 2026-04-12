@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.viewmodel
+package com.PillPal.ui.viewmodel
 
 import android.content.Context
 import android.media.RingtoneManager
@@ -6,8 +6,8 @@ import android.net.Uri
 import android.content.Context.MODE_PRIVATE
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vasant.pillpal.data.sharedPref.NotificationPrefs
-import com.vasant.pillpal.repository.Auth
+import com.PillPal.data.sharedPref.NotificationPrefs
+import com.PillPal.repository.Auth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.SharingStarted
