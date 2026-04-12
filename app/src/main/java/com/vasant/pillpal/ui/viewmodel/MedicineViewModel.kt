@@ -1,15 +1,15 @@
-package com.vasant.pillpal.ui.viewmodel
+package com.PillPal.ui.viewmodel
 
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vasant.pillpal.data.db.Medicine
-import com.vasant.pillpal.data.db.MedicineEvent
-import com.vasant.pillpal.repository.MedicineRepo
-import com.vasant.pillpal.ui.components.cancelAlarm
-import com.vasant.pillpal.ui.components.setUpAlarm
-import com.vasant.pillpal.ui.presentation.MedicineState
+import com.PillPal.data.db.Medicine
+import com.PillPal.data.db.MedicineEvent
+import com.PillPal.repository.MedicineRepo
+import com.PillPal.ui.components.cancelAlarm
+import com.PillPal.ui.components.setUpAlarm
+import com.PillPal.ui.presentation.MedicineState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
