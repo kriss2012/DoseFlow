@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.navigation
+package com.PillPal.ui.navigation
 
 import android.content.Context.MODE_PRIVATE
 import androidx.compose.animation.core.tween
@@ -10,19 +10,19 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import com.vasant.pillpal.ui.screens.AddMedsScreen
-import com.vasant.pillpal.ui.screens.AuthScreens.SignIn
-import com.vasant.pillpal.ui.screens.AuthScreens.SignUpScreen
-import com.vasant.pillpal.ui.screens.AuthScreens.WelcomeScreen
-import com.vasant.pillpal.ui.screens.AuthScreens.SplashScreen
-import com.vasant.pillpal.ui.screens.AuthScreens.GuestLoginScreen
-import com.vasant.pillpal.ui.screens.AboutScreen
-import com.vasant.pillpal.ui.screens.ChatScreen
-import com.vasant.pillpal.ui.screens.FeedbackScreen
-import com.vasant.pillpal.ui.screens.HelpFaqScreen
-import com.vasant.pillpal.ui.screens.HomeScreen
-import com.vasant.pillpal.ui.screens.NotificationsScreen
-import com.vasant.pillpal.ui.screens.SettingsScreen
+import com.PillPal.ui.screens.AddMedsScreen
+import com.PillPal.ui.screens.AuthScreens.SignIn
+import com.PillPal.ui.screens.AuthScreens.SignUpScreen
+import com.PillPal.ui.screens.AuthScreens.WelcomeScreen
+import com.PillPal.ui.screens.AuthScreens.SplashScreen
+import com.PillPal.ui.screens.AuthScreens.GuestLoginScreen
+import com.PillPal.ui.screens.AboutScreen
+import com.PillPal.ui.screens.ChatScreen
+import com.PillPal.ui.screens.FeedbackScreen
+import com.PillPal.ui.screens.HelpFaqScreen
+import com.PillPal.ui.screens.HomeScreen
+import com.PillPal.ui.screens.NotificationsScreen
+import com.PillPal.ui.screens.SettingsScreen
 
 @Composable
 fun NavigationApp(windowSizeClass: WindowSizeClass) {
