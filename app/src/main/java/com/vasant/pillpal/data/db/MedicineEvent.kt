@@ -1,7 +1,7 @@
-package com.vasant.pillpal.data.db
+package com.PillPal.data.db
 
 import android.content.Context
-import com.vasant.pillpal.ui.presentation.MedicineType
+import com.PillPal.ui.presentation.MedicineType
 
 
 sealed interface MedicineEvent {
