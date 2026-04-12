@@ -1,7 +1,7 @@
-package com.vasant.pillpal.repository
+package com.PillPal.repository
 
-import com.vasant.pillpal.data.db.Medicine
-import com.vasant.pillpal.data.db.dao.MedicineDao
+import com.PillPal.data.db.Medicine
+import com.PillPal.data.db.dao.MedicineDao
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
