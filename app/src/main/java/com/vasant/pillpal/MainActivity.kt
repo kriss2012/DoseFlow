@@ -1,4 +1,4 @@
-package com.vasant.pillpal
+package com.PillPal
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
-import com.vasant.pillpal.ui.theme.PillPalTheme
+import com.PillPal.ui.theme.PillPalTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
