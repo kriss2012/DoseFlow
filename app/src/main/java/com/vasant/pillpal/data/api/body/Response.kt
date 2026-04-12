@@ -1,4 +1,4 @@
-package com.vasant.pillpal.data.api.body
+package com.PillPal.data.api.body
 
 data class GeneratedResponse(
     val generated_text: String
