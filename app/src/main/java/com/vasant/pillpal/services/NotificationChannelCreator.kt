@@ -1,4 +1,4 @@
-package com.vasant.pillpal.services
+package com.PillPal.services
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
