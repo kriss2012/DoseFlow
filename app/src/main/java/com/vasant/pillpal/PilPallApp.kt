@@ -1,4 +1,4 @@
-package com.vasant.pillpal
+package com.PillPal
 
 import android.app.Application
 import android.app.NotificationChannel
@@ -7,7 +7,7 @@ import android.content.Context
 import android.os.Build
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
-import com.vasant.pillpal.ui.navigation.NavigationApp
+import com.PillPal.ui.navigation.NavigationApp
 import dagger.hilt.android.HiltAndroidApp
 
 @Composable
