@@ -1,4 +1,4 @@
-package com.vasant.pillpal.ui.theme
+package com.PillPal.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
