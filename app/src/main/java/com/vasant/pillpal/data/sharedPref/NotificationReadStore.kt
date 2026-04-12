@@ -1,4 +1,4 @@
-package com.vasant.pillpal.data.sharedPref
+package com.PillPal.data.sharedPref
 
 import android.content.Context
 import android.content.SharedPreferences
