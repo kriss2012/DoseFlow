@@ -1,4 +1,4 @@
-package com.vasant.pillpal.utils
+package com.PillPal.utils
 
 import java.text.SimpleDateFormat
 import java.util.Calendar
