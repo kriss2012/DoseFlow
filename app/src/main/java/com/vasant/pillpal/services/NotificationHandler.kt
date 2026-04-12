@@ -1,10 +1,10 @@
-package com.vasant.pillpal.services
+package com.PillPal.services
 
 import android.app.NotificationManager
 import android.content.Context
 import androidx.core.app.NotificationCompat
-import com.vasant.pillpal.MEDICINE_CHANNEL_ID
-import com.vasant.pillpal.R
+import com.PillPal.MEDICINE_CHANNEL_ID
+import com.PillPal.R
 
 class NotificationHandler(private val context: Context) {
 
